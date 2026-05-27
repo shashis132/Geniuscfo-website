@@ -109,6 +109,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- =================== VIDEO PREVIEW =================== -->
+<section class="paper video-preview-section" data-screen-label="01b Video Preview">
+  <div class="container">
+    <div class="video-preview-wrap reveal">
+      <div class="eyebrow"><span class="line"></span>See it first</div>
+      <h2 class="section-headline video-preview-headline">Two minutes. <span class="em-accent">Everything clear.</span></h2>
+      <button class="video-thumb-btn" data-watch-demo aria-label="Watch 2-min walkthrough">
+        <div class="video-thumb-img">
+          <img src="assets/shots/askcfo.jpg" alt="GeniusCFO — Ask anything about your business">
+          <div class="video-play-overlay">
+            <div class="play-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            </div>
+            <span class="play-label">Watch 2-min walkthrough</span>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- =================== 01 · PROBLEM =================== -->
 <section class="paper section-y" id="problem" data-screen-label="02 Problem">
   <div class="container">
@@ -756,6 +777,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </select>
           </div>
         </div>
+        <div class="form-row whatsapp-optin-row">
+          <label class="checkbox-label" for="f-whatsapp">
+            <input type="checkbox" id="f-whatsapp" name="whatsapp_optin" value="true">
+            <span>I agree to receive updates and promotional messages on WhatsApp from <a href="#" data-modal="privacy" class="optin-link">GeniusCFO</a>.</span>
+          </label>
+        </div>
         <button type="submit" class="btn btn-primary btn-block" style="margin-top:22px;" data-cta="waitlist-submit">
           Join the waitlist · It is free
           <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -841,6 +868,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 id="legal-title">—</h2>
     <div id="legal-body"></div>
   </div>
+</div>
+
+<!-- ============== LIGHTBOX ============== -->
+<div class="lightbox-backdrop" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
 </div>
 
 <script src="landing.js?v=2"></script>

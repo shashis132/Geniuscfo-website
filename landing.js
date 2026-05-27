@@ -153,7 +153,9 @@
         <h3>Where it lives</h3>
         <p>Customer data is stored within India in compliance with the Digital Personal Data Protection Act, 2023. Encrypted at rest (AES-256) and in transit (TLS 1.3).</p>
         <h3>Your rights</h3>
-        <p>Access, correct, export, or delete your data at any time from Settings or by emailing <a href="mailto:privacy@geniuscfo.ai">privacy@geniuscfo.ai</a>. We respond within 30 days.</p>`,
+        <p>Access, correct, export, or delete your data at any time from Settings or by emailing <a href="mailto:privacy@geniuscfo.ai">privacy@geniuscfo.ai</a>. We respond within 30 days.</p>
+        <h3>WhatsApp communications</h3>
+        <p>If you opt in via the waitlist form, we may send you updates and promotional messages via WhatsApp Business. This consent is optional and separate from the waitlist registration. You can opt out at any time by replying STOP to any WhatsApp message or by emailing <a href="mailto:privacy@geniuscfo.ai">privacy@geniuscfo.ai</a>. We record your consent timestamp and source page for compliance purposes.</p>`,
     },
     terms: {
       eyebrow: 'Last updated · May 2026',
@@ -211,11 +213,32 @@
   [demoModal, legalModal].forEach((m) => {
     m.addEventListener('click', (e) => { if (e.target === m) closeModals(); });
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModals(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeModals(); closeLightbox(); }
+  });
   function closeModals() {
     demoModal.classList.remove('open');
     legalModal.classList.remove('open');
     demoIframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  // ---------- Gallery lightbox ----------
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.gallery-img img').forEach((img) => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('lightbox-close').addEventListener('click', () => closeLightbox());
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
     document.body.style.overflow = '';
   }
 
@@ -229,7 +252,15 @@
     const data = Object.fromEntries(new FormData(form).entries());
     data.timestamp = new Date().toISOString();
 
-    track('generate_lead', { turnover: data.turnover, role: data.role });
+    // WhatsApp opt-in consent fields
+    const optinChecked = document.getElementById('f-whatsapp').checked;
+    data.whatsapp_optin = optinChecked ? 'true' : 'false';
+    data.whatsapp_consent_source = window.location.href;
+    if (optinChecked) {
+      data.whatsapp_consent_timestamp = new Date().toISOString();
+    }
+
+    track('generate_lead', { turnover: data.turnover, role: data.role, whatsapp_optin: data.whatsapp_optin });
 
     try {
       await fetch(ENDPOINT, {

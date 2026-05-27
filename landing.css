@@ -1705,3 +1705,191 @@ section { position: relative; }
   .scen-outcome { margin: 16px -20px -24px; padding: 14px 20px; border-radius: 0 0 12px 12px; }
   .stat-card { padding: 28px 20px; }
 }
+
+/* =====================================================
+   VIDEO PREVIEW SECTION
+   ===================================================== */
+.video-preview-section {
+  padding: 80px 0;
+  background: var(--paper);
+}
+.video-preview-wrap {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.video-preview-headline {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+.video-thumb-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.video-thumb-img {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border: 1px solid var(--ink-10);
+  box-shadow: 0 24px 80px -12px rgba(11,15,26,0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.video-thumb-btn:hover .video-thumb-img {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 100px -12px rgba(0,200,150,0.18), 0 0 0 2px rgba(0,200,150,0.25);
+}
+.video-thumb-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top left;
+  display: block;
+  filter: brightness(0.7);
+  transition: filter 0.3s ease;
+}
+.video-thumb-btn:hover .video-thumb-img img { filter: brightness(0.55); }
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.play-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--emerald);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  box-shadow: 0 0 0 12px rgba(0,200,150,0.18), 0 8px 32px rgba(0,200,150,0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.video-thumb-btn:hover .play-circle {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 16px rgba(0,200,150,0.2), 0 12px 40px rgba(0,200,150,0.45);
+}
+.play-circle svg { margin-left: 3px; }
+.play-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+@media (max-width: 640px) {
+  .video-preview-section { padding: 56px 0; }
+  .play-circle { width: 56px; height: 56px; }
+  .play-circle svg { width: 18px; height: 18px; }
+}
+
+/* =====================================================
+   GALLERY LIGHTBOX
+   ===================================================== */
+.gallery-img { cursor: zoom-in; }
+.gallery-img img { transition: filter 0.25s ease; }
+.gallery-img:hover img { filter: brightness(0.88); }
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox-backdrop.open { display: flex; }
+.lightbox-img {
+  max-width: 100%;
+  max-height: 88vh;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--white);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  line-height: 1;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+/* =====================================================
+   COMPARE TABLE — STICKY FIRST COLUMN ON MOBILE
+   ===================================================== */
+@media (max-width: 920px) {
+  .compare-table th:first-child,
+  .compare-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--paper-2);
+  }
+  .compare-table tbody td:first-child {
+    background: var(--white);
+  }
+  .compare-table .price-row td:first-child {
+    background: var(--white);
+  }
+  .compare-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 48px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.95));
+    pointer-events: none;
+    border-radius: 0 20px 20px 0;
+  }
+  .compare-table th, .compare-table td { padding: 14px 12px; font-size: 12px; }
+  .compare-table th:first-child { width: 140px; }
+}
+
+/* =====================================================
+   WHATSAPP OPT-IN CHECKBOX
+   ===================================================== */
+.whatsapp-optin-row { margin-top: 10px; margin-bottom: 4px; }
+.checkbox-label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+.checkbox-label input[type="checkbox"] {
+  width: 18px; height: 18px;
+  min-width: 18px;
+  accent-color: var(--emerald);
+  margin-top: 2px;
+  cursor: pointer;
+}
+.optin-link {
+  color: var(--emerald);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+}
