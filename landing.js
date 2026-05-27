@@ -266,8 +266,7 @@
       await fetch(ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(data),
+        body: new URLSearchParams(data),
       });
     } catch (err) { /* no-cors returns opaque — ignore */ }
 
