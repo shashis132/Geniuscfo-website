@@ -107,13 +107,11 @@
   // ---------- Demo modal ----------
   const demoModal = document.getElementById('demo-modal');
   const demoIframe = document.getElementById('demo-iframe');
-  const YT_URL = 'https://www.youtube.com/embed/vt3HkHW_akg?autoplay=1&rel=0';
+  const YT_WATCH = 'https://www.youtube.com/watch?v=vt3HkHW_akg';
   document.querySelectorAll('[data-watch-demo]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      demoIframe.src = YT_URL;
-      demoModal.classList.add('open');
-      document.body.style.overflow = 'hidden';
       track('cta_click', { label: 'watch_demo' });
+      window.open(YT_WATCH, '_blank', 'noopener');
     });
   });
 
