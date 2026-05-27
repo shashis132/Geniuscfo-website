@@ -247,8 +247,15 @@
   const success = document.getElementById('waitlist-success');
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycby2kVnqAkcFj93_kSpzUHwWzEXyysxlsxhLW7WymcU1_CcvadwLrLeWqVfbyA54QM6grA/exec';
 
+  const submitBtn = document.getElementById('waitlist-submit-btn');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Show loading state
+    submitBtn.classList.add('submitting');
+    submitBtn.disabled = true;
+
     const data = Object.fromEntries(new FormData(form).entries());
     data.timestamp = new Date().toISOString();
 
@@ -271,7 +278,6 @@
     } catch (err) { /* no-cors returns opaque — ignore */ }
 
     form.style.display = 'none';
-    document.querySelector('.waitlist-count').style.display = 'none';
     success.style.display = 'block';
   });
 

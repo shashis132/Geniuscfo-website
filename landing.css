@@ -1341,6 +1341,14 @@ section { position: relative; }
   margin-top: 16px;
 }
 .microcopy .dot { color: rgba(255,255,255,0.2); margin: 0 6px; }
+.req { color: var(--emerald); font-style: normal; }
+
+/* Submit button loading state */
+.btn-spinner { display: none; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+.btn.submitting .btn-label { opacity: 0.7; }
+.btn.submitting .arrow { display: none; }
+.btn.submitting .btn-spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .waitlist-count {
   text-align: center;
   margin-top: 28px;
