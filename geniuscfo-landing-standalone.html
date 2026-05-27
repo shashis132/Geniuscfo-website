@@ -2366,7 +2366,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="modal" style="background:#000; padding:0; max-width:960px; overflow:hidden;">
     <button class="modal-close" data-modal-close style="z-index:5;">×</button>
     <div class="video-aspect" style="aspect-ratio:16/9;">
-      <iframe id="demo-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <iframe id="demo-iframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </div>
@@ -2491,11 +2491,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // ---------- Demo modal ----------
   const demoModal = document.getElementById('demo-modal');
   const demoIframe = document.getElementById('demo-iframe');
-  const YT_WATCH = 'https://www.youtube.com/watch?v=vt3HkHW_akg';
+  const YT_EMBED = 'https://www.youtube.com/embed/vt3HkHW_akg?autoplay=1&rel=0';
   document.querySelectorAll('[data-watch-demo]').forEach((btn) => {
     btn.addEventListener('click', () => {
+      demoIframe.src = YT_EMBED;
+      demoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
       track('cta_click', { label: 'watch_demo' });
-      window.open(YT_WATCH, '_blank', 'noopener');
     });
   });
 
