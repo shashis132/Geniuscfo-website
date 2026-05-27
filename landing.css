@@ -1547,3 +1547,161 @@ section { position: relative; }
 @media (max-width: 480px) {
   .stat-grid { grid-template-columns: 1fr; }
 }
+
+/* =====================================================
+   MOBILE & TABLET ENHANCEMENTS
+   ===================================================== */
+
+/* ---------- Hamburger button ---------- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Mobile nav overlay ---------- */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(11,15,26,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 98;
+}
+.mobile-nav-overlay.open { display: block; }
+
+/* ---------- Mobile nav drawer ---------- */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: var(--ink-90);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 99;
+  padding: 8px 0 20px;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+.mobile-nav-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-nav-drawer a:not(.btn) {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  padding: 14px var(--pad-x);
+  display: block;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-nav-drawer a:not(.btn):hover { color: var(--white); background: rgba(255,255,255,0.04); }
+.mobile-nav-drawer .btn {
+  margin: 16px var(--pad-x) 0;
+  width: calc(100% - 2 * var(--pad-x));
+  justify-content: center;
+}
+
+@media (max-width: 880px) {
+  .nav-hamburger { display: flex; }
+  .nav-links a:not(.nav-cta) { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-cta { display: none; }
+}
+
+/* ---------- Touch target fixes ---------- */
+.btn { min-height: 44px; }
+.btn-sm { min-height: 40px; padding: 10px 16px; }
+.modal-close { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
+.faq-q { min-height: 44px; }
+
+/* ---------- iOS input zoom fix (font-size must be ≥ 16px) ---------- */
+.form-row input,
+.form-row select {
+  font-size: 16px;
+}
+
+/* ---------- Table horizontal scroll on mobile ---------- */
+@media (max-width: 768px) {
+  .msme-table-wrap,
+  .persona-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .msme-table  { min-width: 520px; }
+  .persona-table { min-width: 580px; }
+}
+
+/* ---------- Tablet polish (768px – 1100px) ---------- */
+@media (max-width: 1024px) {
+  .service-grid { grid-template-columns: repeat(3, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Mobile polish (≤ 640px) ---------- */
+@media (max-width: 640px) {
+  /* Hero */
+  .hero-eyebrow-pill { font-size: 9px; padding: 7px 12px; gap: 8px; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn { width: 100%; justify-content: center; }
+
+  /* Layers */
+  .layer-card { padding: 24px 20px; }
+  .layers-wrap { gap: 12px; }
+
+  /* Pricing */
+  .price-card { padding: 28px 24px; }
+
+  /* CA section */
+  .ca-stats-grid { grid-template-columns: 1fr; }
+  .ca-headline-card { padding: 36px 28px; }
+
+  /* Services */
+  .service-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Waitlist */
+  .waitlist-card { padding: 32px 20px; }
+
+  /* Gallery */
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Small phone polish (≤ 375px) ---------- */
+@media (max-width: 375px) {
+  .hero h1 { font-size: 32px; }
+  .hero-ctas .btn { font-size: 13px; }
+  .service-grid { grid-template-columns: 1fr; }
+  .step-card { padding: 28px 20px; }
+  .scen-card { padding: 24px 20px; }
+  .scen-outcome { margin: 16px -20px -24px; padding: 14px 20px; border-radius: 0 0 12px 12px; }
+  .stat-card { padding: 28px 20px; }
+}

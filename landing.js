@@ -23,6 +23,23 @@
     });
   });
 
+  // ---------- Mobile hamburger menu ----------
+  const hamburger   = document.getElementById('nav-hamburger');
+  const mobileDrawer  = document.getElementById('mobile-nav-drawer');
+  const mobileOverlay = document.getElementById('mobile-nav-overlay');
+
+  function setMobileNav(open) {
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    mobileDrawer.classList.toggle('open', open);
+    mobileDrawer.setAttribute('aria-hidden', !open);
+    mobileOverlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => setMobileNav(!hamburger.classList.contains('open')));
+  mobileOverlay.addEventListener('click', () => setMobileNav(false));
+  mobileDrawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMobileNav(false)));
+
   // ---------- Nav scroll state ----------
   const nav = document.getElementById('nav');
   function onScroll() {
