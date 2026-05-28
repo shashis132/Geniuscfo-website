@@ -242,6 +242,39 @@
     document.body.style.overflow = '';
   }
 
+  // ---------- Phone number validation ----------
+  const phoneInput = document.getElementById('f-phone');
+  const phoneError = document.getElementById('phone-error');
+  // Accepts: 9958067153 | 919958067153 | +919958067153 — no spaces/dashes/brackets
+  const phoneRegex = /^(\+91|91)?[6-9][0-9]{9}$/;
+
+  function validatePhone() {
+    const val = phoneInput.value.trim();
+    if (!val) {
+      phoneError.textContent = '';
+      phoneError.classList.remove('visible');
+      phoneInput.classList.remove('invalid');
+      phoneInput.setCustomValidity('');
+      return true;
+    }
+    if (!phoneRegex.test(val)) {
+      phoneError.textContent =
+        'Invalid number. Use only digits — no spaces, dashes, or brackets. ' +
+        'Examples: 9958067153 · 919958067153 · +919958067153';
+      phoneError.classList.add('visible');
+      phoneInput.classList.add('invalid');
+      phoneInput.setCustomValidity('invalid');
+      return false;
+    }
+    phoneError.textContent = '';
+    phoneError.classList.remove('visible');
+    phoneInput.classList.remove('invalid');
+    phoneInput.setCustomValidity('');
+    return true;
+  }
+  phoneInput.addEventListener('input', validatePhone);
+  phoneInput.addEventListener('blur', validatePhone);
+
   // ---------- Waitlist form ----------
   const form = document.getElementById('waitlist-form');
   const success = document.getElementById('waitlist-success');
@@ -251,6 +284,12 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Block if phone is invalid
+    if (!validatePhone()) {
+      phoneInput.focus();
+      return;
+    }
 
     // Show loading state
     submitBtn.classList.add('submitting');

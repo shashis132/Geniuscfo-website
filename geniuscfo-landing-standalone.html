@@ -1359,6 +1359,26 @@ section { position: relative; }
 }
 .microcopy .dot { color: rgba(255,255,255,0.2); margin: 0 6px; }
 .req { color: var(--emerald); font-style: normal; }
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
+  margin-top: 7px;
+  line-height: 1.6;
+}
+.field-error {
+  font-size: 12.5px;
+  color: var(--coral);
+  margin-top: 6px;
+  line-height: 1.5;
+  display: none;
+}
+.field-error.visible { display: block; }
+.form-row input.invalid {
+  border-color: var(--coral);
+  background: rgba(255,75,110,0.06);
+}
 
 /* Submit button loading state */
 .btn-spinner { display: none; animation: spin 0.7s linear infinite; flex-shrink: 0; }
@@ -2654,7 +2674,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="form-row">
           <label for="f-phone">Mobile number <span class="req">*</span></label>
-          <input type="tel" id="f-phone" name="phone" placeholder="+91 98765 43210" required>
+          <input type="tel" id="f-phone" name="phone" placeholder="9958067153" required>
+          <div class="field-hint">Accepted: 9958067153 &nbsp;·&nbsp; 919958067153 &nbsp;·&nbsp; +919958067153<br>No spaces, dashes, or brackets.</div>
+          <div class="field-error" id="phone-error"></div>
         </div>
         <div class="form-grid">
           <div class="form-row">
@@ -3026,6 +3048,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.body.style.overflow = '';
   }
 
+  // ---------- Phone number validation ----------
+  const phoneInput = document.getElementById('f-phone');
+  const phoneError = document.getElementById('phone-error');
+  // Accepts: 9958067153 | 919958067153 | +919958067153 — no spaces/dashes/brackets
+  const phoneRegex = /^(\+91|91)?[6-9][0-9]{9}$/;
+
+  function validatePhone() {
+    const val = phoneInput.value.trim();
+    if (!val) {
+      phoneError.textContent = '';
+      phoneError.classList.remove('visible');
+      phoneInput.classList.remove('invalid');
+      phoneInput.setCustomValidity('');
+      return true;
+    }
+    if (!phoneRegex.test(val)) {
+      phoneError.textContent =
+        'Invalid number. Use only digits — no spaces, dashes, or brackets. ' +
+        'Examples: 9958067153 · 919958067153 · +919958067153';
+      phoneError.classList.add('visible');
+      phoneInput.classList.add('invalid');
+      phoneInput.setCustomValidity('invalid');
+      return false;
+    }
+    phoneError.textContent = '';
+    phoneError.classList.remove('visible');
+    phoneInput.classList.remove('invalid');
+    phoneInput.setCustomValidity('');
+    return true;
+  }
+  phoneInput.addEventListener('input', validatePhone);
+  phoneInput.addEventListener('blur', validatePhone);
+
   // ---------- Waitlist form ----------
   const form = document.getElementById('waitlist-form');
   const success = document.getElementById('waitlist-success');
@@ -3035,6 +3090,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Block if phone is invalid
+    if (!validatePhone()) {
+      phoneInput.focus();
+      return;
+    }
 
     // Show loading state
     submitBtn.classList.add('submitting');
